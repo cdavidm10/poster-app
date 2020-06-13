@@ -1,0 +1,32 @@
+{
+    "name": "carlos.medina/poster-app",
+    "description": "poster-app test",
+    "type": "project",
+    "authors": [
+        {
+            "name": "David Medina",
+            "email": "cdavidm01467@gmail.com"
+        }
+    ],
+    "require": {
+        "respect/validation": "dev-master",
+        "seld/jsonlint": "dev-master"
+    },
+    "require-dev": {
+        "fzaninotto/faker": "^1.4",
+        "mockery/mockery": "^1.0",
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
