@@ -1,1 +1,12 @@
-[{"message":"Another Test!","username":"davi12","date":"2020.06.14"},{"message":"Dale Ve!","username":"davi12","date":"2020.06.14"}]
+[
+    {
+        "message": "Another Test!",
+        "username": "davi12",
+        "date": "06/14/2020"
+    },
+    {
+        "message": "Dale Ve!",
+        "username": "davi12",
+        "date": "06/10/2020"
+    }
+]

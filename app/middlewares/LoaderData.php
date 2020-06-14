@@ -29,11 +29,11 @@ class LoaderData
         file_put_contents(SITE_ROOT . 'data/' . $this->file_name . '.json', json_encode($data));
     }
 
-    public function saveDataOnSesion(array $data,  String $filter): void
+    public function saveDataOnSesion(array $data, String $filter, String $daterange): void
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $_SESSION[$this->file_name] = $data;
-        $_SESSION['filter'] = $filter;
+        $_SESSION['filter'] = $filter . ' - ' . $daterange;
         $_SESSION['filtered'] = true;
     }
 

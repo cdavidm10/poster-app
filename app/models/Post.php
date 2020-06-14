@@ -9,7 +9,7 @@ class Post
     {
         $this->message = $data['message'];
         $this->username = $data['username'] ?? '';
-        $this->date = $data['date'] ?? date("Y.m.d");;
+        $this->date = $data['date'] ?? date("m/d/Y");;
     }
 
     public function getMessage(): String
@@ -27,9 +27,21 @@ class Post
         return $this->date;
     }
 
-    public function canBeFiltered($filter): bool
+    public function canBeFiltered(String $filter,  array $filter_dates): bool
     {
+        return $this->canBefilterByMessage($filter) && $this->canBefilterByDates($filter_dates);
+    }
 
+    public function canBefilterByMessage(String $filter): bool
+    {
         return !(strpos($this->getMessage(), $filter) ===  false);
+    }
+
+    public function canBefilterByDates(array $filter_dates): bool
+    {
+        $date_created = new DateTime($this->getDate());
+        $startdate = new DateTime($filter_dates[0]);
+        $enddate = new DateTime($filter_dates[1]);
+        return $startdate <= $date_created && $date_created <= $enddate;
     }
 }

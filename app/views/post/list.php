@@ -4,6 +4,7 @@
 <head>
     <title>Poster App </title>
     <link href="//db.onlinewebfonts.com/c/a4e256ed67403c6ad5d43937ed48a77b?family=Core+Sans+N+W01+35+Light" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="/css/app.css" type="text/css">
 </head>
 
@@ -13,8 +14,9 @@
         <div class="module">
             <div class="posts-list">
                 <h1>Recently Posts</h1>
-                <form class="form" id="filter-post" method="post">
-                    <input type="search" name="filter" placeholder="Search: Canción, autor, álbum..." required>
+                <form class="form" id="filter-post" method="post" autocomplete="off">
+                    <input type="search" name="filter" placeholder="Search: Canción..." required>
+                    <input type="text" name="daterange" required />
                     <input type="submit" value="Search" class="btn btn-primary">
                 </form>
                 <?php
@@ -42,9 +44,11 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(function() {
             $('#new-post').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
@@ -98,6 +102,21 @@
                         }
                     }
                 });
+            });
+
+            $('input[name="daterange"]').daterangepicker({
+                autoUpdateInput: false,
+                opens: 'left'
+            }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+            });
+
+            $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
             });
         });
     </script>

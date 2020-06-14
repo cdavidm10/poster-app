@@ -60,17 +60,21 @@ class PostController extends Controller
         }
 
         $filter = trim($_POST['filter']);
+        $daterange = trim($_POST['daterange']);
+
+        $filter_dates = explode(' - ', trim($daterange));
+
         $posts_filtered = [];
         $this->posts = $this->loader_data->getData();
 
         foreach ($this->posts as $data_post) {
             $post = $this->model('Post', $data_post);
-            if ($post->canBeFiltered($filter)) {
+            if ($post->canBeFiltered($filter,  $filter_dates)) {
                 $posts_filtered[] = $data_post;
             }
         }
 
-        $this->loader_data->saveDataOnSesion($posts_filtered,  $filter);
+        $this->loader_data->saveDataOnSesion($posts_filtered,  $filter, $daterange);
 
         echo json_encode([
             SUCCESS_KEY => 1,
