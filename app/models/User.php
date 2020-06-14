@@ -10,8 +10,8 @@ class User
     public function __construct(array $data)
     {
         $this->username = $data['username'];
-        $this->email = $data['email'];
-        $this->phone = $data['phone'];
+        $this->email = $data['email'] ?? '';
+        $this->phone = $data['phone'] ?? '';
         $this->password = password_hash($data['password'], PASSWORD_DEFAULT);
     }
 

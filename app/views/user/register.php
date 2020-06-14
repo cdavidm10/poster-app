@@ -12,12 +12,12 @@
     <div class="body-content">
         <div class="module">
             <h1>Create Account</h1>
-            <form class="form" id="register-form" method="post">
+            <form class="form" id="register-form" method="post" autocomplete="off">
                 <div class="alert alert-error"></div>
-                <input required type="text" value="davi12" placeholder="User Name" name="username" minlength="6" maxlength="20" pattern="^[a-zA-Z]{4,}[\d]{2,}$" title="Username should have at least 4 letters and 2 numbers, and should not contain special characters.. e.g. david02" />
-                <input type="text" value="1234567890" placeholder="Phone" name="phone" required pattern="\d{10,20}$" title="Phone must have at least 10 numbers" minlength="10" maxlength="20" />
-                <input type="email" value="david12@gmail.com" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Email must be a valid email example@email.com" />
-                <input type="password" value="David12-20" placeholder="Password" name="password" required pattern="(?=.*\d)(?=.*[-])(?=.*[A-Z]){6,20}" minlength="6" maxlength="20" title="Password should be at least 6 characters long and contain a “-” and an uppercase letter." />
+                <input required type="text" placeholder="User Name" name="username" minlength="6" maxlength="20" pattern="^[a-zA-Z]{4,}[\d]{2,}$" title="Username should have at least 4 letters and 2 numbers, and should not contain special characters.. e.g. david02" />
+                <input type="text" placeholder="Phone" name="phone" required pattern="\d{10,20}$" title="Phone must have at least 10 numbers" minlength="10" maxlength="20" />
+                <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Email must be a valid email example@email.com" />
+                <input type="password" placeholder="Password" name="password" required pattern="(?=.*\d)(?=.*[-])(?=.*[A-Z]){6,20}" minlength="6" maxlength="20" title="Password should be at least 6 characters long and contain a “-” and an uppercase letter." />
                 <input type="submit" value="Register" name="register" class="btn btn-block btn-primary" />
             </form>
             <a href="/user/login"><input type="button" value="Log in" class="btn btn-block btn-primary" /></a>
@@ -36,7 +36,6 @@
                     data: $(this).serialize(),
                     success: function(response) {
                         var jsonData = JSON.parse(response);
-                        console.log(jsonData);
 
                         // user is logged in successfully in the back-end
                         // let's redirect

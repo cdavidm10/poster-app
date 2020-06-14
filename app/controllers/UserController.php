@@ -5,7 +5,7 @@ class UserController extends Controller
 
     public function index(): void
     {
-        header("Location: /");
+        header(DEFAULT_LOCATION);
     }
     public function register(): void
     {
@@ -20,7 +20,7 @@ class UserController extends Controller
     public function create(): void
     {
         if (!$this->isPost()) {
-            header("Location: /");
+            header(DEFAULT_LOCATION);
         }
 
         $data = $_POST;
@@ -38,26 +38,48 @@ class UserController extends Controller
             $loader->saveData($users);
             $authenticator->login($user);
             echo json_encode([
-                'success' => 1,
-                'message' => 'User already created!'
+                SUCCESS_KEY => 1,
+                MESSAGE_KEY => 'User already created!'
             ]);
         } elseif (!empty($users[$user->getUsername()])) {
             echo json_encode([
-                'success' => 0,
-                'message' => 'User already exists!'
+                SUCCESS_KEY => 0,
+                MESSAGE_KEY => 'User already exists!'
             ]);
         }
     }
 
-    public function load(): void
+    public function validate(): void
     {
-        // Ver el ejemplo de password_hash() para ver de dónde viene este hash.
-        $hash = '$2y$07$BCryptRequires22Chrcte/VlQH0piJtjXl.0t1XkA8pw9dMXTpOq';
+        if (!$this->isPost()) {
+            header(DEFAULT_LOCATION);
+        }
 
-        if (password_verify('rasmuslerdorf', $hash)) {
-            echo '¡La contraseña es válida!';
+        $data = $_POST;
+        $loader = new LoaderData('users');
+        $users = $loader->getData();
+        $user = new User($data);
+
+        if (!empty($users) && !empty($users[$user->getUsername()])) {
+            $authenticator = new Authenticator();
+
+            if (password_verify($data['password'], $user->getPassword())) {
+                $authenticator->login($user);
+                echo json_encode([
+                    SUCCESS_KEY => 1,
+                    MESSAGE_KEY => 'Log in was successfull!'
+                ]);
+            } else {
+                echo json_encode([
+                    SUCCESS_KEY => 0,
+                    MESSAGE_KEY => 'Invalid Credentials!'
+                ]);
+            }
         } else {
-            echo 'La contraseña no es válida.';
+            echo json_encode([
+                SUCCESS_KEY => 0,
+                MESSAGE_KEY => 'User doesn\'t exist!'
+            ]);
         }
     }
 }

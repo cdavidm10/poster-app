@@ -6,11 +6,12 @@ class PostController extends Controller
     {
         $authenticator = new Authenticator();
         if (!$authenticator->isLogged()) {
-            header("Location: /");
+            header(DEFAULT_LOCATION);
         } else {
             $user = $authenticator->getUser();
             echo "Posts from: " . $user->getUsername();
             var_dump($user);
+            // $authenticator->logout();
         }
     }
 }
