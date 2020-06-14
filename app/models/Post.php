@@ -26,4 +26,10 @@ class Post
     {
         return $this->date;
     }
+
+    public function canBeFiltered($filter): bool
+    {
+
+        return !(strpos($this->getMessage(), $filter) ===  false);
+    }
 }

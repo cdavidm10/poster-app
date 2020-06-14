@@ -28,4 +28,20 @@ class LoaderData
     {
         file_put_contents(SITE_ROOT . 'data/' . $this->file_name . '.json', json_encode($data));
     }
+
+    public function saveDataOnSesion(array $data,  String $filter): void
+    {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $_SESSION[$this->file_name] = $data;
+        $_SESSION['filter'] = $filter;
+        $_SESSION['filtered'] = true;
+    }
+
+    public function removeDataOnSesion(): void
+    {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $_SESSION['filtered'] = false;
+        unset($_SESSION[$this->file_name]);
+        unset($_SESSION['filter']);
+    }
 }

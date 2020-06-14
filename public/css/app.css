@@ -35,7 +35,8 @@ h1, h2, h3 {
 select,
 input[type="text"],
 input[type="password"],
-input[type="email"]
+input[type="email"],
+input[type="search"]
 {
     height:30px;
 }
@@ -57,7 +58,20 @@ input[type="email"]
     line-height: 20px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-  }
+}
+
+input[type="search"]{
+    width:55%;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 10px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 20px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 .btn {
 text-overflow: ellipsis;

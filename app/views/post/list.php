@@ -13,8 +13,17 @@
         <div class="module">
             <div class="posts-list">
                 <h1>Recently Posts</h1>
+                <form class="form" id="filter-post" method="post">
+                    <input type="search" name="filter" placeholder="Search: Canción, autor, álbum..." required>
+                    <input type="submit" value="Search" class="btn btn-primary">
+                </form>
                 <?php
                 $posts = $data['posts'];
+                if ($data['filtered']) {
+                    echo "<p><strong>Actual Filter: {$data['filter']}</strong>
+                    <input type='button' id='clear-filter-btn' value='Clear Filter' class='btn btn-primary'></p>";
+                }
+
                 echo "&nbsp;<hr /> &nbsp;";
                 foreach ($posts as $post) {
                     echo "<p><strong>{$post['date']}</strong></p>";
@@ -42,6 +51,42 @@
                     type: "POST",
                     url: '/post/create',
                     data: $(this).serialize(),
+                    success: function(response) {
+                        var jsonData = JSON.parse(response);
+                        alert(jsonData.message);
+
+                        // Post was created successfully in the back-end
+                        // let's redirect
+                        if (jsonData.success === 1) {
+                            location.href = '/post/index';
+                        }
+                    }
+                });
+            });
+
+            $('#filter-post').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: '/post/filter',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        var jsonData = JSON.parse(response);
+                        alert(jsonData.message);
+
+                        // Post was created successfully in the back-end
+                        // let's redirect
+                        if (jsonData.success === 1) {
+                            location.href = '/post/index';
+                        }
+                    }
+                });
+            });
+
+            $("#clear-filter-btn").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '/post/clearFilter',
                     success: function(response) {
                         var jsonData = JSON.parse(response);
                         alert(jsonData.message);
