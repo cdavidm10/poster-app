@@ -11,14 +11,21 @@
     <h1>Poster App - Test</h1>
     <div class="body-content">
         <div class="module">
-            <h1>Log in</h1>
-            <form class="form" id="login-form" method="post" autocomplete="off">
-                <div class="alert alert-error"></div>
-                <input type="text" placeholder="User Name" name="username" required />
-                <input type="password" placeholder="Password" name="password" required />
-                <input type="submit" value="Log in" name="login" class="btn btn-block btn-primary" />
+            <div class="posts-list">
+                <h1>Recently Posts</h1>
+                <?php
+                echo "Posts from: ";
+                var_dump($data);
+                ?>
+            </div>
+            &nbsp;
+            <hr />
+            &nbsp;
+            <form class="form" id="new-post" method="post" autocomplete="off">
+                <textarea name="message" placeholder="Write something here" required></textarea>
+                <input type="submit" value="Write a comment" class="btn btn-block btn-primary" />
             </form>
-            <a href="/"><input type="button" value="Go Back" class="btn btn-block btn-primary" /></a>
+            <a href="/user/logout"><input type="button" value="Log out" class="btn btn-block btn-primary" /></a>
         </div>
     </div>
 
@@ -26,20 +33,20 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#login-form').submit(function(e) {
+            $('#new-post').submit(function(e) {
                 e.preventDefault();
                 $.ajax({
                     type: "POST",
-                    url: '/user/validate',
+                    url: '/post/create',
                     data: $(this).serialize(),
                     success: function(response) {
                         var jsonData = JSON.parse(response);
                         alert(jsonData.message);
 
-                        // user is logged in successfully in the back-end
+                        // Post was created successfully in the back-end
                         // let's redirect
                         if (jsonData.success === 1) {
-                            location.href = '/post/';
+                            location.href = '/post/index';
                         }
                     }
                 });

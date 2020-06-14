@@ -17,6 +17,13 @@ class UserController extends Controller
         $this->view('user/login');
     }
 
+    public function logout(): void
+    {
+        $authenticator = new Authenticator();
+        $authenticator->logout();
+        header(DEFAULT_LOCATION);
+    }
+
     public function create(): void
     {
         if (!$this->isPost()) {

@@ -36,14 +36,12 @@
                     data: $(this).serialize(),
                     success: function(response) {
                         var jsonData = JSON.parse(response);
+                        alert(jsonData.message);
 
-                        // user is logged in successfully in the back-end
+                        // user was created successfully in the back-end
                         // let's redirect
                         if (jsonData.success === 1) {
-                            alert(jsonData.message);
                             location.href = '/post/';
-                        } else {
-                            alert(jsonData.message);
                         }
                     }
                 });
