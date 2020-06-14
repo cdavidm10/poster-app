@@ -14,13 +14,16 @@
             <div class="posts-list">
                 <h1>Recently Posts</h1>
                 <?php
-                echo "Posts from: ";
-                var_dump($data);
+                $posts = $data['posts'];
+                echo "&nbsp;<hr /> &nbsp;";
+                foreach ($posts as $post) {
+                    echo "<p><strong>{$post['date']}</strong></p>";
+                    echo "<p>{$post['message']}</p>";
+                    echo "<p><strong>By {$post['username']}</strong></p>";
+                    echo "&nbsp;<hr /> &nbsp;";
+                }
                 ?>
             </div>
-            &nbsp;
-            <hr />
-            &nbsp;
             <form class="form" id="new-post" method="post" autocomplete="off">
                 <textarea name="message" placeholder="Write something here" required></textarea>
                 <input type="submit" value="Write a comment" class="btn btn-block btn-primary" />

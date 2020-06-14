@@ -22,7 +22,6 @@ class PostController extends Controller
     {
         $this->view('post/list', [
             'username' => $this->user->getUsername(),
-            'email' => $this->user->getEmail(),
             'posts' => $this->posts
         ]);
     }
@@ -37,9 +36,9 @@ class PostController extends Controller
         $data['username'] = $this->user->getUsername();
         $post = $this->model('Post', $data);
         $new_post = [
-            'date' => $post->getMessage(),
-            'message' => $post->getUsername(),
-            'username' => $post->getDate()
+            'message' => $post->getMessage(),
+            'username' => $post->getUsername(),
+            'date' => $post->getDate()
         ];
         $this->posts[] = $new_post;
 
@@ -47,8 +46,7 @@ class PostController extends Controller
 
         echo json_encode([
             SUCCESS_KEY => 1,
-            MESSAGE_KEY => 'Message was successfully created!',
-            'posts' => array_reverse($this->posts)
+            MESSAGE_KEY => 'Message was successfully created!'
         ]);
     }
 }
