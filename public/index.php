@@ -1,4 +1,6 @@
 <?php
-require '../vendor/autoload.php';
+require_once '../vendor/autoload.php';
+require_once '../app/config.php';
+require_once SITE_ROOT . 'init.php';
 
-require_once '../app/views/Layout.php';
+$app = new App();
