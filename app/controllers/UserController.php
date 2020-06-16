@@ -70,6 +70,8 @@ class UserController extends Controller
         if (!empty($users) && !empty($users[$user->getUsername()])) {
             $authenticator = new Authenticator();
 
+            $user->setPassword($users[$user->getUsername()]['password']);
+
             if (password_verify($data['password'], $user->getPassword())) {
                 $authenticator->login($user);
                 echo json_encode([
@@ -85,7 +87,7 @@ class UserController extends Controller
         } else {
             echo json_encode([
                 SUCCESS_KEY => 0,
-                MESSAGE_KEY => 'User doesn\'t exist!'
+                MESSAGE_KEY => 'Invalid Credentials!'
             ]);
         }
     }

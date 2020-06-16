@@ -20,6 +20,11 @@ class User
         return $this->username;
     }
 
+    public function setPassword(String $password): void
+    {
+        $this->password = $password;
+    }
+
     public function getEmail(): String
     {
         return $this->email;

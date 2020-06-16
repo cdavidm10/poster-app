@@ -12,7 +12,7 @@ class Controller
         return new $model($data);
     }
 
-    protected function view($view,  ?array $data = [])
+    protected function view(String $view,  ?array $data = [])
     {
         require_once SITE_ROOT . 'views/' . $view . '.php';
     }
